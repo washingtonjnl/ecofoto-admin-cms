@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { useRouter } from 'next/router';
 
 import api from '@/services/api';
 
@@ -12,7 +12,6 @@ import { Container } from '@ps/Home';
 
 interface FormData {
   email: string;
-  password: string;
 }
 
 const Home: React.FC = () => {
@@ -21,14 +20,20 @@ const Home: React.FC = () => {
   const router = useRouter();
 
   const handleAuthenticate: SubmitHandler<FormData> = async data => {
-    if (data.email && data.password) {
-      router.push('/app');
+    if (data.email) {
+      alert(
+        'Enviamos um email para você. Siga as instruções para recuperar sua senha',
+      );
+      router.push('/');
     } else {
-      alert('A combinação email/senha informada é inválida');
+      alert('O email enviado é inválido');
     }
 
     // try {
     //   const response = await api.post('login', data);
+    //   alert(
+    //     'Enviamos um email para você. Siga as instruções para recuperar sua senha',
+    //   );
     //   console.log(response.data);
     // } catch (err) {
     //   alert('A combinação email/senha informada é inválida');
@@ -39,21 +44,17 @@ const Home: React.FC = () => {
   return (
     <Container>
       <Head>
-        <title>Ecofoto - Login Administrativo</title>
+        <title>Ecofoto - Recuperação de Senha Administrativa</title>
       </Head>
       <h1>Administração do Ecofoto</h1>
-      <h2>Faça login com seu email e senha:</h2>
+      <h2>Preencha o formulário abaixo para recuperar sua senha:</h2>
       <Form ref={formRef} onSubmit={handleAuthenticate}>
         <Input name="email" label="Seu email:" type="email" />
-        <Input name="password" label="Sua senha:" type="password" />
 
-        <button type="submit">Entrar</button>
+        <button type="submit">Recuperar Senha</button>
       </Form>
-      <Link href="/cadastro">
-        <a>Não tem uma conta? Cadastre-se clicando aqui</a>
-      </Link>
-      <Link href="/recuperacao-de-senha">
-        <a>Caso tenha esquecido sua senha, clique aqui</a>
+      <Link href="/">
+        <a>Clique aqui para fazer login</a>
       </Link>
     </Container>
   );

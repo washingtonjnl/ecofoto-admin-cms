@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { useRouter } from 'next/router';
 
 import api from '@/services/api';
 
@@ -11,6 +11,7 @@ import Input from '@/components/Form/Input';
 import { Container } from '@ps/Home';
 
 interface FormData {
+  name: string;
   email: string;
   password: string;
 }
@@ -21,17 +22,24 @@ const Home: React.FC = () => {
   const router = useRouter();
 
   const handleAuthenticate: SubmitHandler<FormData> = async data => {
-    if (data.email && data.password) {
-      router.push('/app');
+    let formData = new FormData();
+
+    formData.append('name', data.name);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+
+    if (data.name && data.email && data.password) {
+      alert('Administrador cadastrado');
+      router.push('/');
     } else {
-      alert('A combinação email/senha informada é inválida');
+      alert('O cadastro falhou. Cheque os dados enviados e tente novamente');
     }
 
     // try {
-    //   const response = await api.post('login', data);
+    //   const response = await api.get('administradores', formData);
     //   console.log(response.data);
     // } catch (err) {
-    //   alert('A combinação email/senha informada é inválida');
+    //   alert('O cadastro falhou. Cheque os dados enviados e tente novamente');
     //   console.log({ message: err.message });
     // }
   };
@@ -39,21 +47,19 @@ const Home: React.FC = () => {
   return (
     <Container>
       <Head>
-        <title>Ecofoto - Login Administrativo</title>
+        <title>Ecofoto - Cadastro Administrativo</title>
       </Head>
       <h1>Administração do Ecofoto</h1>
-      <h2>Faça login com seu email e senha:</h2>
+      <h2>Cadastre-se com seu nome, email e senha:</h2>
       <Form ref={formRef} onSubmit={handleAuthenticate}>
+        <Input name="name" label="Seu nome:" type="text" />
         <Input name="email" label="Seu email:" type="email" />
         <Input name="password" label="Sua senha:" type="password" />
 
-        <button type="submit">Entrar</button>
+        <button type="submit">Cadastrar</button>
       </Form>
-      <Link href="/cadastro">
-        <a>Não tem uma conta? Cadastre-se clicando aqui</a>
-      </Link>
-      <Link href="/recuperacao-de-senha">
-        <a>Caso tenha esquecido sua senha, clique aqui</a>
+      <Link href="/">
+        <a>Já tem uma conta? Faça login clicando aqui</a>
       </Link>
     </Container>
   );

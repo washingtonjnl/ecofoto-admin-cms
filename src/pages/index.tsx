@@ -21,19 +21,19 @@ const Home: React.FC = () => {
   const router = useRouter();
 
   const handleAuthenticate: SubmitHandler<FormData> = async data => {
-    if (data.email && data.password) {
-      router.push('/app');
-    } else {
-      alert('A combinação email/senha informada é inválida');
-    }
+    let formData = new FormData();
 
-    // try {
-    //   const response = await api.post('login', data);
-    //   console.log(response.data);
-    // } catch (err) {
-    //   alert('A combinação email/senha informada é inválida');
-    //   console.log({ message: err.message });
-    // }
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+
+    try {
+      const response = await api.post('login', formData);
+      // console.log(response.data);
+      router.push('/app');
+    } catch (err) {
+      alert('A combinação email/senha informada é inválida');
+      console.log({ message: err.message });
+    }
   };
 
   return (

@@ -28,20 +28,14 @@ const Home: React.FC = () => {
     formData.append('email', data.email);
     formData.append('password', data.password);
 
-    if (data.name && data.email && data.password) {
+    try {
+      const response = await api.put('administradores', formData);
       alert('Administrador cadastrado');
       router.push('/');
-    } else {
+    } catch (err) {
       alert('O cadastro falhou. Cheque os dados enviados e tente novamente');
+      console.log({ message: err.message });
     }
-
-    // try {
-    //   const response = await api.get('administradores', formData);
-    //   console.log(response.data);
-    // } catch (err) {
-    //   alert('O cadastro falhou. Cheque os dados enviados e tente novamente');
-    //   console.log({ message: err.message });
-    // }
   };
 
   return (

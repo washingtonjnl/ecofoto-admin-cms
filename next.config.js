@@ -9,7 +9,7 @@ module.exports = withImages({
     return [
       {
         // matching all API routes
-        source: '/api/:path*',
+        source: 'http://200.20.113.53:5000',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
           { key: 'Access-Control-Allow-Origin', value: '*' },

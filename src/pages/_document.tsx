@@ -49,10 +49,6 @@ export default class MyDocument extends Document {
             href="https://www.google.com/s2/favicons?domain=github.com"
             rel="icon"
           />
-          <meta
-            http-equiv="Content-Security-Policy"
-            content="upgrade-insecure-requests"
-          ></meta>
         </Head>
         <body>
           <Main />

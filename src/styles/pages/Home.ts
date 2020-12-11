@@ -2,7 +2,15 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   min-width: 100vw;
+  max-width: 960px;
   min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Main = styled.main`
+  flex: 1;
 
   display: flex;
   justify-content: center;
@@ -28,7 +36,8 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
 
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
 
     label {
       font-size: 16px;
@@ -38,12 +47,17 @@ export const Container = styled.div`
     input + label {
       margin-top: 14px;
     }
+
+    small {
+      margin-top: 10px;
+      color: ${props => props.theme.colors.altText};
+    }
   }
 
   input {
     padding: 12px 16px;
     border-radius: 5px;
-    border: 1.5px solid ${props => props.theme.colors.altText};
+    border: 1.5px solid ${props => props.theme.colors.inputs};
 
     color: ${props => props.theme.colors.primary};
 
@@ -64,9 +78,6 @@ export const Container = styled.div`
     font-size: 16px;
     font-weight: bold;
 
-    cursor: pointer;
-    transition: 0.2s;
-
     &:hover {
       opacity: 0.9;
     }
@@ -81,5 +92,19 @@ export const Container = styled.div`
     &:hover {
       opacity: 0.9;
     }
+  }
+`;
+
+export const NotAuthorized = styled.div`
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-weight: normal;
+    font-size: 20px;
+    text-align: center;
   }
 `;

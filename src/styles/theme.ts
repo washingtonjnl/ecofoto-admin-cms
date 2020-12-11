@@ -3,7 +3,8 @@ const theme = {
     background: '#fefefe',
     text: '#2a2a2a',
     primary: '#4181ED',
-    altText: '#d4d4d4',
+    altText: '#a2a2a2',
+    inputs: '#d4d4d4',
   },
 };
 
